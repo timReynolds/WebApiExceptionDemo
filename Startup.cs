@@ -2,6 +2,7 @@
 using System.Web.Http.ExceptionHandling;
 using ExceptionDemo;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Owin;
 
 [assembly: OwinStartup(typeof(Startup))]
@@ -17,9 +18,9 @@ namespace ExceptionDemo
             httpConfiguration.Services.Add(typeof(IExceptionLogger), new ExampleExceptionLogger());
             
             httpConfiguration.MapHttpAttributeRoutes();
-            httpConfiguration.EnableCors();
             
             appBuilder.UseOwinExceptionHandler();
+            appBuilder.UseCors(CorsOptions.AllowAll); // Use Owin Cors
             appBuilder.UseWebApi(httpConfiguration);
         }
     }
