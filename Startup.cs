@@ -18,7 +18,7 @@ namespace ExceptionDemo
             
             httpConfiguration.MapHttpAttributeRoutes();
             httpConfiguration.EnableCors();
-
+            
             appBuilder.UseOwinExceptionHandler();
             appBuilder.UseWebApi(httpConfiguration);
         }

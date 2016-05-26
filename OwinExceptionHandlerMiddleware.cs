@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Owin;
 using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
@@ -37,20 +38,16 @@ namespace ExceptionDemo
                 }
                 catch (Exception)
                 {
-                    // If there's a Exception while generating the error page, re-throw the original exception.
+                    Console.WriteLine("Exception while generating the error response");
                 }
                 throw;
             }
         }
         private void HandleException(Exception ex, IOwinContext context)
         {
-            //var request = context.Request;
-            //Build a model to represet the error for the client
-            //var errorDataModel = NLogLogger.BuildErrorDataModel(ex);
-            //context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            //context.Response.ReasonPhrase = "Internal Server Error";
-            //context.Response.ContentType = "application/json";
-            //context.Response.Write(JsonConvert.SerializeObject(errorDataModel));
+            var request = context.Request;
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            context.Response.ReasonPhrase = "Internal Server Error from OwinExceptionHandlerMiddleware";
         }
     }
 }
